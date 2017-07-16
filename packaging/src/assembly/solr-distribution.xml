@@ -1,0 +1,58 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+    <id>distribution</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>true</includeBaseDirectory>
+    <baseDirectory>${project.artifactId}</baseDirectory>
+    <fileSets>
+        <fileSet>
+            <directory>${project.build.outputDirectory}</directory>
+            <outputDirectory>.</outputDirectory>
+            <filtered>true</filtered>
+        </fileSet>
+        <fileSet>
+            <directory>target/solr-${solr.version}/bin</directory>
+            <outputDirectory>.</outputDirectory>
+            <includes>
+                <include>solr.in.sh</include>
+                <include>solr.in.cmd</include>
+            </includes>
+        </fileSet>
+        <!-- Solr war dependency unpacked earlier to get rid of the root dir -->
+        <fileSet>
+            <directory>target/solr-${solr.version}</directory>
+            <outputDirectory>solr</outputDirectory>
+            <excludes>
+                <exclude>**/server/solr/**</exclude>
+                <exclude>**/server/resources/log4j.properties</exclude>
+                <exclude>**/contrib/**</exclude>
+                <exclude>**/dist/**</exclude>
+                <exclude>**/example/**</exclude>
+                <exclude>**/bin/solr.in.sh</exclude>
+                <exclude>**/bin/solr.in.cmd</exclude>
+            </excludes>
+        </fileSet>
+        <!-- Solr config -->
+        <fileSet>
+            <directory>target/alfresco-search/solr/instance</directory>
+            <outputDirectory>solrhome</outputDirectory>
+            <excludes>
+                <exclude>**/workspace-SpacesStore/**</exclude>
+                <exclude>**/archive-SpacesStore/**</exclude>
+                <exclude>context.xml</exclude>
+            </excludes>
+        </fileSet>
+        <!-- Solr libs -->
+        <fileSet>
+            <directory>target/solr-libs/libs</directory>
+            <outputDirectory>solr/server/solr-webapp/webapp/WEB-INF/lib</outputDirectory>
+            <excludes>
+                <exclude>**/workspace-SpacesStore/**</exclude>
+                <exclude>**/archive-SpacesStore/**</exclude>
+                <exclude>context.xml</exclude>
+            </excludes>
+        </fileSet>
+    </fileSets>
+</assembly>

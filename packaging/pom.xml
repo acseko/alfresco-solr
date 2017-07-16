@@ -1,0 +1,492 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>alfresco-search-services</artifactId>
+	<name>Alfresco Search Services</name>
+	<description>Alfresco Search Services Solr distribution zip</description>
+	<packaging>jar</packaging>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<alfresco-search.version>1.0.0</alfresco-search.version>
+		<project.timestamp>${maven.build.timestamp}</project.timestamp>
+		<project.build.key>${bamboo_buildKey}</project.build.key>
+		<project.build.key>${bamboo_fullBuildKey}</project.build.key>
+		<project.revision.key>${bamboo_repository_revision_number}</project.revision.key>
+	</properties>
+	<parent>
+		<groupId>org.alfresco</groupId>
+		<artifactId>alfresco-search-parent</artifactId>
+		<version>1.0.0.ms</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<dependencies>
+		<dependency>
+			<groupId>org.alfresco</groupId>
+			<artifactId>alfresco-search</artifactId>
+			<version>${alfresco-search.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.alfresco</groupId>
+			<artifactId>alfresco-search</artifactId>
+			<version>${alfresco-search.version}</version>
+			<classifier>libs</classifier>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.chemistry.opencmis</groupId>
+					<artifactId>chemistry-opencmis-commons-impl</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.chemistry.opencmis</groupId>
+					<artifactId>chemistry-opencmis-commons-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.chemistry.opencmis</groupId>
+			<artifactId>chemistry-opencmis-commons-impl</artifactId>
+			<version>0.11.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.codehaus.woodstox</groupId>
+					<artifactId>woodstox-core-asl</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr</artifactId>
+			<version>${solr.version}</version>
+			<type>pom</type>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.activation/activation -->
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+			<version>1.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.1</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.xml.stream</groupId>
+					<artifactId>stax-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>javax.xml.ws</groupId>
+			<artifactId>jaxws-api</artifactId>
+			<version>2.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-rt</artifactId>
+			<version>2.1.7</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.sun.xml.bind</groupId>
+					<artifactId>jaxb-impl</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>stax</groupId>
+					<artifactId>stax-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.woodstox</groupId>
+					<artifactId>wstx-asl</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.jvnet</groupId>
+					<artifactId>mimepull</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<version>1.7.7</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jvnet.mimepull</groupId>
+			<artifactId>mimepull</artifactId>
+			<version>1.9.4</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.org.apache.xml.internal</groupId>
+			<artifactId>resolver</artifactId>
+			<version>20050927</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.alfresco</groupId>
+			<artifactId>alfresco-solrclient</artifactId>
+			<version>${alfresco-solr.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.chemistry.opencmis</groupId>
+					<artifactId>chemistry-opencmis-client-impl</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.woodstox</groupId>
+					<artifactId>woodstox-core-asl</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.commons</groupId>
+					<artifactId>commons-math3</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+			<version>3.5</version>
+		</dependency>
+		<!-- provided dependencies -->
+
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-analyzers-common</artifactId>
+			<version>${solr.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-core</artifactId>
+			<version>${solr.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>jdk.tools</groupId>
+					<artifactId>jdk.tools</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-analysis-extras</artifactId>
+			<version>${solr.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-langid</artifactId>
+			<version>${solr.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-clustering</artifactId>
+			<version>${solr.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.7</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>alfresco-search-services-${project.version}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<verbose>true</verbose>
+					<filesets>
+						<fileset>
+							<directory>${install.common.directory}</directory>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>read-project-properties</goal>
+						</goals>
+						<configuration>
+							<files>
+								<file>config.properties</file>
+							</files>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack-solr-war</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.apache.solr</groupId>
+									<artifactId>solr</artifactId>
+									<version>${solr.version}</version>
+									<type>zip</type>
+									<outputDirectory>${project.build.directory}</outputDirectory>
+									<excludes>**/*solr.xml</excludes>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+					<execution>
+						<id>unpack-solr-config</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.alfresco</groupId>
+									<artifactId>alfresco-search</artifactId>
+									<version>${alfresco-search.version}</version>
+									<outputDirectory>${project.build.directory}/alfresco-search</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+					<execution>
+						<id>unpack-solr-libs</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.alfresco</groupId>
+									<artifactId>alfresco-search</artifactId>
+									<version>${alfresco-search.version}</version>
+									<classifier>libs</classifier>
+									<outputDirectory>${project.build.directory}/solr-libs</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.alfresco</groupId>
+									<artifactId>alfresco-search</artifactId>
+									<version>${alfresco-search.version}</version>
+									<outputDirectory>${project.build.directory}/solr-libs/libs</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+							<outputDirectory>${project.build.directory}/wars</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${install.common.directory}/lib</outputDirectory>
+							<includeScope>compile</includeScope>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<excludeClassifiers>libs</excludeClassifiers>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-dependencies-sources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/libsources</outputDirectory>
+							<includeScope>compile</includeScope>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<classifier>sources</classifier>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!-- Set the default solr home directory to solrhome -->
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>prepare-package</id>
+						<phase>prepare-package</phase>
+						<configuration>
+							<target>
+								<replace token="SOLR_SERVER_DIR/solr" value="SOLR_TIP/../solrhome"
+									dir="target/solr-${solr.version}">
+									<include name="**/bin/solr" />
+								</replace>
+								<replace token="%SOLR_SERVER_DIR%\solr" value="%SOLR_TIP%\..\solrhome"
+									dir="target/solr-${solr.version}">
+									<include name="**/bin/solr.cmd" />
+								</replace>
+								<replace token="HOME/.solr.in.sh" value="SOLR_TIP/../solr.in.sh"
+									dir="target/solr-${solr.version}">
+									<include name="**/bin/solr" />
+								</replace>
+								<replace token="\bin\solr.in.cmd" value="\..\solr.in.cmd"
+									dir="target/solr-${solr.version}">
+									<include name="**/bin/solr.cmd" />
+								</replace>
+								<replace token="SOLR_SSL_OPTS=%SOLR_SSL_OPTS%" value="SOLR_SSL_OPTS=!SOLR_SSL_OPTS!"
+									dir="target/solr-${solr.version}">
+									<include name="**/bin/solr.cmd" />
+								</replace>
+								<replace token="#SOLR_LOGS_DIR=logs" value="${alfresco.search.logs}"
+									dir="target/solr-${solr.version}">
+									<include name="**/bin/solr.in.sh" />
+								</replace>
+								<replace token="REM set SOLR_LOGS_DIR=logs" value="${alfresco.search.logs.win}"
+									dir="target/solr-${solr.version}">
+									<include name="**/bin/solr.in.cmd" />
+								</replace>
+								<replace token="GC logging"
+									value="GC logging${line.separator}${alfresco.gc.logs}" dir="target/solr-${solr.version}">
+									<include name="**/bin/solr.in.sh" />
+								</replace>
+								<replace token="GC logging"
+									value="GC logging${line.separator}${alfresco.gc.logs.win}" dir="target/solr-${solr.version}">
+									<include name="**/bin/solr.in.cmd" />
+								</replace>
+								<replace token="# Anything you add to the SOLR_OPTS"
+									value="${alfresco.search.config}${line.separator}${line.separator}# Anything you add to the SOLR_OPTS"
+									dir="target/solr-${solr.version}">
+									<include name="**/bin/solr.in.sh" />
+								</replace>
+								<replace token="REM Anything you add to the SOLR_OPTS"
+									value="${alfresco.search.config.win}${line.separator}${line.separator}REM Anything you add to the SOLR_OPTS"
+									dir="target/solr-${solr.version}">
+									<include name="**/bin/solr.in.cmd" />
+								</replace>
+								<replace token="${alfresco.search.ssl.token}"
+									value="${alfresco.search.ssl}${line.separator} ${alfresco.search.ssl.token}"
+									dir="target/solr-${solr.version}">
+									<include name="**/server/etc/jetty*.xml" />
+								</replace>
+								<replace token="${alfresco.search.ssl.need.token}"
+									value="${alfresco.search.ssl.need}" dir="target/solr-${solr.version}">
+									<include name="**/server/etc/jetty-ssl.xml" />
+								</replace>
+								<replace token="wantClientAuth" value="wantclientauth"
+									dir="target/solr-${solr.version}">
+									<include name="**/server/etc/jetty-ssl.xml" />
+								</replace>
+								<chmod file="target/solr-${solr.version}/bin/solr" perm="755" />
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>process-sources</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target
+								name=" Rename file endings from maven to ivy style. (*-sources.jar)->(*.src.jar)">
+								<move todir="${install.common.directory}/lib"
+									includeemptydirs="false">
+									<fileset dir="${project.build.directory}/libsources">
+									</fileset>
+									<mapper type="glob" from="*-sources.jar" to="*.src.jar" />
+								</move>
+							</target>
+						</configuration>
+					</execution>
+					<execution>
+						<id>extract distribution zip</id>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<inherited>false</inherited>
+						<configuration>
+						
+							<target name="Extract distribution zip">
+								<echo
+									message="Extracting ${install.common.directory}/vanilla/${project.artifactId}-${project.version}.zip to ${install.common.directory}/vanilla/exploded" />
+								<unzip
+									src="${install.common.directory}/vanilla/${project.artifactId}-${project.version}.zip"
+									dest="${install.common.directory}/vanilla/exploded">
+								</unzip>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<appendAssemblyId>false</appendAssemblyId>
+					<descriptors>
+						<descriptor>src/assembly/solr-distribution.xml</descriptor>
+					</descriptors>
+					<outputDirectory>${install.common.directory}/vanilla</outputDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
