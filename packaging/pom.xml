@@ -447,7 +447,6 @@
 						</goals>
 						<inherited>false</inherited>
 						<configuration>
-						
 							<target name="Extract distribution zip">
 								<echo
 									message="Extracting ${install.common.directory}/vanilla/${project.artifactId}-${project.version}.zip to ${install.common.directory}/vanilla/exploded" />
@@ -455,6 +454,47 @@
 									src="${install.common.directory}/vanilla/${project.artifactId}-${project.version}.zip"
 									dest="${install.common.directory}/vanilla/exploded">
 								</unzip>
+								<echo message="Copy solrhome" />
+								<copy todir="${install.common.directory}/solrhome">
+									<fileset
+										dir="${install.common.directory}/vanilla/exploded/alfresco-search-services/solrhome" />
+								</copy>
+								<macrodef name="createCore">
+									<attribute name="coreName" />
+									<attribute name="storeName" />
+									<sequential>
+										<echo message="Creating @{coreName} core" />
+										<mkdir dir="${install.common.directory}/solrhome/@{coreName}"></mkdir>
+										<echo message="core=@{coreName}"
+											file="${install.common.directory}/solrhome/@{coreName}/core.properties" />
+										<copy todir="${install.common.directory}/solrhome/@{coreName}/conf">
+											<fileset
+												dir="${install.common.directory}/solrhome/templates/rerank/conf" />
+										</copy>
+										<!-- Remove comments lines -->
+										<replaceregexp
+											file="${install.common.directory}/solrhome/@{coreName}/conf/solrcore.properties"
+											match="^#.*$" replace="" byline="true" flags="g" />
+										<!-- Remove empty lines -->
+										<replaceregexp
+											file="${install.common.directory}/solrhome/@{coreName}/conf/solrcore.properties"
+											match="(\r?\n)\s*\r?\n" flags="g" replace="\1" />
+										<echo
+											file="${install.common.directory}/solrhome/@{coreName}/conf/solrcore.properties"
+											append="true"
+											message="#Aflresco settings${line.separator}alfresco.stores=@{storeName}\://SpacesStore${line.separator}alfresco.template=rerank${line.separator}data.dir.root=_invalid_path_must_overwrite_${line.separator}data.dir.store=@{coreName}${line.separator}" />
+									</sequential>
+								</macrodef>
+								<createCore coreName="alfresco" storeName="workspace" />
+								<createCore coreName="archive" storeName="archive" />
+								
+								<copy todir="${install.common.directory}/solr">
+									<fileset dir="${install.common.directory}/vanilla/exploded/alfresco-search-services/solr" />
+								</copy>
+								<echo message="fix startup solr for older lsof version" />
+								<replaceregexp
+											file="${install.common.directory}/solr/bin/solr"
+											match="sTCP:LISTEN" replace="s" byline="true" flags="g" />
 							</target>
 						</configuration>
 					</execution>
