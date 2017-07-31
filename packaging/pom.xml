@@ -467,7 +467,7 @@
 										<mkdir dir="${install.common.directory}/solrhome/@{coreName}"></mkdir>
 										<echo message="core=@{coreName}"
 											file="${install.common.directory}/solrhome/@{coreName}/core.properties" />
-										<copy todir="${install.common.directory}/solrhome/@{coreName}/conf">
+										<copy overwrite="true" todir="${install.common.directory}/solrhome/@{coreName}/conf">
 											<fileset
 												dir="${install.common.directory}/solrhome/templates/rerank/conf" />
 										</copy>
