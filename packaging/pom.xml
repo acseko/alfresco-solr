@@ -492,7 +492,11 @@
 								</macrodef>
 								<createCore coreName="alfresco" storeName="workspace" />
 								<createCore coreName="archive" storeName="archive" />
-								
+								<echo message="Copy logs folder" />
+								<copy todir="${install.common.directory}/logs">
+									<fileset dir="${install.common.directory}/vanilla/exploded/alfresco-search-services/logs" />
+								</copy>
+								<echo message="Copy solr folder" />
 								<copy todir="${install.common.directory}/solr">
 									<fileset dir="${install.common.directory}/vanilla/exploded/alfresco-search-services/solr" />
 								</copy>
