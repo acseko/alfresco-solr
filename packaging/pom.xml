@@ -113,12 +113,12 @@
 			<version>1.7.7</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
+<!-- 		<dependency>
 			<groupId>org.jvnet.mimepull</groupId>
 			<artifactId>mimepull</artifactId>
 			<version>1.9.4</version>
 			<scope>provided</scope>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>com.sun.org.apache.xml.internal</groupId>
 			<artifactId>resolver</artifactId>
@@ -483,6 +483,11 @@
 											file="${install.common.directory}/solrhome/@{coreName}/conf/solrcore.properties"
 											append="true"
 											message="#Aflresco settings${line.separator}alfresco.stores=@{storeName}\://SpacesStore${line.separator}alfresco.template=rerank${line.separator}data.dir.root=_invalid_path_must_overwrite_${line.separator}data.dir.store=@{coreName}${line.separator}" />
+										<!-- Replace line endings to platform format -->
+										<replaceregexp
+											file="${install.common.directory}/solrhome/@{coreName}/conf/solrcore.properties"
+											match="\r\n" flags="g" replace="${line.separator}" />
+											
 									</sequential>
 								</macrodef>
 								<createCore coreName="alfresco" storeName="workspace" />
