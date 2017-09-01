@@ -482,7 +482,7 @@
 										<echo
 											file="${install.common.directory}/solrhome/@{coreName}/conf/solrcore.properties"
 											append="true"
-											message="#Aflresco settings${line.separator}alfresco.stores=@{storeName}\://SpacesStore${line.separator}alfresco.template=rerank${line.separator}data.dir.root=_invalid_path_must_overwrite_${line.separator}data.dir.store=@{coreName}${line.separator}" />
+											message="#Aflresco settings${line.separator}alfresco.stores=@{storeName}\://SpacesStore${line.separator}alfresco.template=rerank${line.separator}#This value must be defined in environment parameter or as a -D java property${line.separator}#data.dir.root=_invalid_path_must_overwrite_${line.separator}data.dir.store=@{coreName}${line.separator}" />
 										<!-- Replace line endings to platform format -->
 										<replaceregexp
 											file="${install.common.directory}/solrhome/@{coreName}/conf/solrcore.properties"
